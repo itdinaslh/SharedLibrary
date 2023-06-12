@@ -10,6 +10,9 @@ public class DokumenKendaraan
 
     public Guid KendaraanID { get; set; }
 
+    [MaxLength(4, ErrorMessage = "Maksimal 4 karakter")]
+    public string? TahunPembuatan { get; set; }
+
     [Required(ErrorMessage = "Tanggal berlaku STNK wajib diisi")]
     public DateOnly TglSTNK { get; set; }
 

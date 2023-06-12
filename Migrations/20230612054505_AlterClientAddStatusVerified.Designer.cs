@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SharedLibrary;
@@ -11,9 +12,10 @@ using SharedLibrary;
 namespace SharedLibrary.Migrations
 {
     [DbContext(typeof(DlhDbContext))]
-    partial class DlhDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230612054505_AlterClientAddStatusVerified")]
+    partial class AlterClientAddStatusVerified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -327,60 +329,6 @@ namespace SharedLibrary.Migrations
                     b.ToTable("LokasiIzin");
                 });
 
-            modelBuilder.Entity("SharedLibrary.Entities.Common.Notification", b =>
-                {
-                    b.Property<Guid>("NotificationID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Href")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsAdminNotification")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("NotificationTypeID")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserID")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.HasKey("NotificationID");
-
-                    b.HasIndex("NotificationTypeID");
-
-                    b.ToTable("Notifications");
-                });
-
-            modelBuilder.Entity("SharedLibrary.Entities.Common.NotificationType", b =>
-                {
-                    b.Property<int>("NotificationTypeID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("NotificationTypeID"));
-
-                    b.Property<string>("NotificationName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("NotificationTypeID");
-
-                    b.ToTable("NotificationType");
-                });
-
             modelBuilder.Entity("SharedLibrary.Entities.Common.Status", b =>
                 {
                     b.Property<int>("StatusID")
@@ -632,10 +580,6 @@ namespace SharedLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("AlasanBlokir")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
                     b.Property<string>("AreaKerja")
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
@@ -821,17 +765,6 @@ namespace SharedLibrary.Migrations
                     b.Navigation("Kelurahan");
                 });
 
-            modelBuilder.Entity("SharedLibrary.Entities.Common.Notification", b =>
-                {
-                    b.HasOne("SharedLibrary.Entities.Common.NotificationType", "NotificationType")
-                        .WithMany("Notifications")
-                        .HasForeignKey("NotificationTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("NotificationType");
-                });
-
             modelBuilder.Entity("SharedLibrary.Entities.Timbangan.Transaction", b =>
                 {
                     b.HasOne("SharedLibrary.Entities.Transportation.Kendaraan", "Kendaraan")
@@ -966,11 +899,6 @@ namespace SharedLibrary.Migrations
             modelBuilder.Entity("SharedLibrary.Entities.Common.LokasiIzin", b =>
                 {
                     b.Navigation("IzinAngkuts");
-                });
-
-            modelBuilder.Entity("SharedLibrary.Entities.Common.NotificationType", b =>
-                {
-                    b.Navigation("Notifications");
                 });
 
             modelBuilder.Entity("SharedLibrary.Entities.Common.Status", b =>

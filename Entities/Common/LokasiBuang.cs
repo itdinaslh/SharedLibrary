@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using SharedLibrary.Entities.Transportation;
 
-namespace SharedLibrary.Entities.Transportation;
+namespace SharedLibrary.Entities.Common;
 
 [Table("LokasiBuang")]
 public class LokasiBuang

@@ -1,0 +1,47 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Entities.Common;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace SharedLibrary.Entities.Transportation;
+
+[Table("LokasiAngkut")]
+[Index(nameof(UniqueID), IsUnique = true)]
+public class LokasiAngkut
+{
+    [Key]
+    public Guid LokasiAngkutID { get; set; } = Guid.Empty;
+
+    public Guid ClientID { get; set; }
+
+    [Required(ErrorMessage = "Harap pilih gedung/kawasan/nama usaha")]
+    public Guid KawasanID { get; set; } // refer to ClientID in table/class Client
+
+    public Guid UniqueID { get; set; } = Guid.NewGuid();
+
+#nullable disable
+    [Required(ErrorMessage = "Nama lokasi wajib diisi")]
+    [MaxLength(100, ErrorMessage = "Maksimal 100 karakter")]
+    public string NamaLokasi { get; set; }
+
+    public DateOnly TglAwalKontrak { get; set; }
+
+    public DateOnly TglAkhirKontrak { get; set; }
+
+    public Client Client { get; set; }
+
+    public Client Kawasan { get; set; }
+
+    public DateTime? CreatedAt { get; set; } = DateTime.Now;
+
+    public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+
+#nullable enable
+    public string? DokumenPath { get; set; }
+
+    public bool? IsApproved { get; set; } = false;
+
+#nullable disable
+
+    //public List<DetaillSpj> DetailSpjs { get; set; }
+}

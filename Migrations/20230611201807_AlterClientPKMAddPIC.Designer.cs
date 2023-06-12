@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SharedLibrary;
@@ -11,9 +12,10 @@ using SharedLibrary;
 namespace SharedLibrary.Migrations
 {
     [DbContext(typeof(DlhDbContext))]
-    partial class DlhDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230611201807_AlterClientPKMAddPIC")]
+    partial class AlterClientPKMAddPIC
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -293,23 +295,6 @@ namespace SharedLibrary.Migrations
                     b.ToTable("ClientPkm");
                 });
 
-            modelBuilder.Entity("SharedLibrary.Entities.Common.LokasiBuang", b =>
-                {
-                    b.Property<int>("LokasiBuangID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("LokasiBuangID"));
-
-                    b.Property<string>("NamaLokasi")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("LokasiBuangID");
-
-                    b.ToTable("LokasiBuang");
-                });
-
             modelBuilder.Entity("SharedLibrary.Entities.Common.LokasiIzin", b =>
                 {
                     b.Property<int>("LokasiIzinID")
@@ -325,60 +310,6 @@ namespace SharedLibrary.Migrations
                     b.HasKey("LokasiIzinID");
 
                     b.ToTable("LokasiIzin");
-                });
-
-            modelBuilder.Entity("SharedLibrary.Entities.Common.Notification", b =>
-                {
-                    b.Property<Guid>("NotificationID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Href")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsAdminNotification")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("NotificationTypeID")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserID")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.HasKey("NotificationID");
-
-                    b.HasIndex("NotificationTypeID");
-
-                    b.ToTable("Notifications");
-                });
-
-            modelBuilder.Entity("SharedLibrary.Entities.Common.NotificationType", b =>
-                {
-                    b.Property<int>("NotificationTypeID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("NotificationTypeID"));
-
-                    b.Property<string>("NotificationName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("NotificationTypeID");
-
-                    b.ToTable("NotificationType");
                 });
 
             modelBuilder.Entity("SharedLibrary.Entities.Common.Status", b =>
@@ -553,10 +484,6 @@ namespace SharedLibrary.Migrations
                     b.Property<Guid>("KendaraanID")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("TahunPembuatan")
-                        .HasMaxLength(4)
-                        .HasColumnType("character varying(4)");
-
                     b.Property<DateOnly>("TglKIR")
                         .HasColumnType("date");
 
@@ -632,10 +559,6 @@ namespace SharedLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("AlasanBlokir")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
                     b.Property<string>("AreaKerja")
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
@@ -652,9 +575,6 @@ namespace SharedLibrary.Migrations
                     b.Property<bool?>("IsPasar")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsVerified")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("NoPintu")
                         .IsRequired()
                         .HasMaxLength(25)
@@ -669,8 +589,9 @@ namespace SharedLibrary.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)");
 
-                    b.Property<int>("StatusID")
-                        .HasColumnType("integer");
+                    b.Property<string>("TahunPembuatan")
+                        .HasMaxLength(4)
+                        .HasColumnType("character varying(4)");
 
                     b.Property<int>("TipeKendaraanID")
                         .HasColumnType("integer");
@@ -682,61 +603,26 @@ namespace SharedLibrary.Migrations
 
                     b.HasIndex("ClientID");
 
-                    b.HasIndex("StatusID");
-
                     b.HasIndex("TipeKendaraanID");
 
                     b.ToTable("Kendaraan");
                 });
 
-            modelBuilder.Entity("SharedLibrary.Entities.Transportation.LokasiAngkut", b =>
+            modelBuilder.Entity("SharedLibrary.Entities.Transportation.LokasiBuang", b =>
                 {
-                    b.Property<Guid>("LokasiAngkutID")
+                    b.Property<int>("LokasiBuangID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("ClientID")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DokumenPath")
-                        .HasColumnType("text");
-
-                    b.Property<bool?>("IsApproved")
-                        .HasColumnType("boolean");
-
-                    b.Property<Guid>("KawasanID")
-                        .HasColumnType("uuid");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("LokasiBuangID"));
 
                     b.Property<string>("NamaLokasi")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
-                    b.Property<DateOnly>("TglAkhirKontrak")
-                        .HasColumnType("date");
+                    b.HasKey("LokasiBuangID");
 
-                    b.Property<DateOnly>("TglAwalKontrak")
-                        .HasColumnType("date");
-
-                    b.Property<Guid>("UniqueID")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("LokasiAngkutID");
-
-                    b.HasIndex("ClientID");
-
-                    b.HasIndex("KawasanID");
-
-                    b.HasIndex("UniqueID")
-                        .IsUnique();
-
-                    b.ToTable("LokasiAngkut");
+                    b.ToTable("LokasiBuang");
                 });
 
             modelBuilder.Entity("SharedLibrary.Entities.Transportation.TipeKendaraan", b =>
@@ -821,17 +707,6 @@ namespace SharedLibrary.Migrations
                     b.Navigation("Kelurahan");
                 });
 
-            modelBuilder.Entity("SharedLibrary.Entities.Common.Notification", b =>
-                {
-                    b.HasOne("SharedLibrary.Entities.Common.NotificationType", "NotificationType")
-                        .WithMany("Notifications")
-                        .HasForeignKey("NotificationTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("NotificationType");
-                });
-
             modelBuilder.Entity("SharedLibrary.Entities.Timbangan.Transaction", b =>
                 {
                     b.HasOne("SharedLibrary.Entities.Transportation.Kendaraan", "Kendaraan")
@@ -868,7 +743,7 @@ namespace SharedLibrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SharedLibrary.Entities.Common.LokasiBuang", "LokasiBuang")
+                    b.HasOne("SharedLibrary.Entities.Transportation.LokasiBuang", "LokasiBuang")
                         .WithMany("IzinAngkuts")
                         .HasForeignKey("LokasiBuangID");
 
@@ -893,12 +768,6 @@ namespace SharedLibrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SharedLibrary.Entities.Common.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SharedLibrary.Entities.Transportation.TipeKendaraan", "TipeKendaraan")
                         .WithMany("Kendaraans")
                         .HasForeignKey("TipeKendaraanID")
@@ -907,28 +776,7 @@ namespace SharedLibrary.Migrations
 
                     b.Navigation("Client");
 
-                    b.Navigation("Status");
-
                     b.Navigation("TipeKendaraan");
-                });
-
-            modelBuilder.Entity("SharedLibrary.Entities.Transportation.LokasiAngkut", b =>
-                {
-                    b.HasOne("SharedLibrary.Entities.Common.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SharedLibrary.Entities.Common.Client", "Kawasan")
-                        .WithMany("LokasiAngkuts")
-                        .HasForeignKey("KawasanID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Kawasan");
                 });
 
             modelBuilder.Entity("SharedLibrary.Entities.Address.Kabupaten", b =>
@@ -954,23 +802,11 @@ namespace SharedLibrary.Migrations
             modelBuilder.Entity("SharedLibrary.Entities.Common.Client", b =>
                 {
                     b.Navigation("ClientPkm");
-
-                    b.Navigation("LokasiAngkuts");
-                });
-
-            modelBuilder.Entity("SharedLibrary.Entities.Common.LokasiBuang", b =>
-                {
-                    b.Navigation("IzinAngkuts");
                 });
 
             modelBuilder.Entity("SharedLibrary.Entities.Common.LokasiIzin", b =>
                 {
                     b.Navigation("IzinAngkuts");
-                });
-
-            modelBuilder.Entity("SharedLibrary.Entities.Common.NotificationType", b =>
-                {
-                    b.Navigation("Notifications");
                 });
 
             modelBuilder.Entity("SharedLibrary.Entities.Common.Status", b =>
@@ -983,6 +819,11 @@ namespace SharedLibrary.Migrations
                     b.Navigation("DokumenKendaraan");
 
                     b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("SharedLibrary.Entities.Transportation.LokasiBuang", b =>
+                {
+                    b.Navigation("IzinAngkuts");
                 });
 
             modelBuilder.Entity("SharedLibrary.Entities.Transportation.TipeKendaraan", b =>

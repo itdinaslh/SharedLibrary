@@ -14,6 +14,11 @@ public class DlhDbContext : DbContext
 
     public DlhDbContext(DbContextOptions<DlhDbContext> options) : base(options) { }
 
+    //public DlhDbContext(DbContextOptionsBuilder builder)
+    //{
+    //    builder.UseNpgsql("User ID=admin; Password=Admin123$; Host=127.0.0.1; Port=5432; Database=LingkunganDB; Pooling=true;");
+    //}
+
     public DbSet<Status> Statuses { get; set; }
     public DbSet<Provinsi> Provinsis { get; set; }
     public DbSet<Kabupaten> Kabupatens { get; set; }
@@ -30,6 +35,17 @@ public class DlhDbContext : DbContext
     public DbSet<Transaction> Penimbangan { get; set; }
     public DbSet<JenisKegiatan> JenisKegiatans { get; set; }
     public DbSet<JenisIzinLingkungan> JenisIzinLingkungans { get; set; }
+    public DbSet<LokasiAngkut> LokasiAngkuts { get; set; }
+    public DbSet<NotificationType> NotificationTypes { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Entity<LokasiAngkut>()
+            .HasOne(l => l.Kawasan)
+            .WithMany(c => c.LokasiAngkuts)
+            .HasForeignKey(l => l.KawasanID);
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

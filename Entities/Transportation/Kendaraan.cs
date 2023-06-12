@@ -27,17 +27,21 @@ public class Kendaraan
 
     public int TipeKendaraanID { get; set; }
 
+    public int StatusID { get; set; } = 3;
+
 #nullable enable
 
     [MaxLength(40)]
-    public string? RFID { get; set; }
+    public string? RFID { get; set; }    
 
-    [MaxLength(4, ErrorMessage = "Maksimal 4 karakter")]
-    public string? TahunPembuatan { get; set; }
+    public bool IsVerified { get; set; } = false;
 
     public int? BeratKIR { get; set; }
 
     public bool? IsPasar { get; set; } = false;
+
+    [MaxLength(150)]
+    public string? AlasanBlokir { get; set; }
 
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
 
@@ -48,6 +52,8 @@ public class Kendaraan
     public TipeKendaraan TipeKendaraan { get; set; }
 
     public Client Client { get; set; }
+
+    public Status Status { get; set; }
 
 #nullable enable
     public DokumenKendaraan? DokumenKendaraan { get; set; }

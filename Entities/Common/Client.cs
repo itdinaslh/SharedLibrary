@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SharedLibrary.Entities.Transportation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SharedLibrary.Entities.Common;
@@ -25,4 +26,8 @@ public class Client
     public DateTime? UpdatedAt { get; set; } = DateTime.Now;
 
     public ClientPkm? ClientPkm { get; set; }
+
+#nullable disable
+
+    public List<LokasiAngkut> LokasiAngkuts { get; set; }
 }

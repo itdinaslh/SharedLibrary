@@ -55,6 +55,14 @@ public class ClientPkm
     [MaxLength(30)]
     public string NPWP { get; set; }
 
+    [MaxLength(75)]
+    [Required(ErrorMessage = "Nama PIC wajib diisi")]
+    public string PIC { get; set; }
+
+    [MaxLength(15)]
+    [Required(ErrorMessage = "No. HP PIC wajib diisi")]
+    public string NoHpPIC { get; set; }
+
     [MaxLength(255)]
     public string DokumenKTP { get; set; }
 
