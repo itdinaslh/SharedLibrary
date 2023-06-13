@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SharedLibrary;
@@ -11,9 +12,10 @@ using SharedLibrary;
 namespace SharedLibrary.Migrations
 {
     [DbContext(typeof(DlhDbContext))]
-    partial class DlhDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230613192610_AlterNotification")]
+    partial class AlterNotification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
