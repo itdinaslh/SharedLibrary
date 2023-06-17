@@ -43,7 +43,7 @@ public class Kendaraan
     [MaxLength(150)]
     public string? AlasanBlokir { get; set; }
 
-    public DateTime? CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     public DateTime? UpdatedAt { get; set; } = DateTime.Now;
 

@@ -28,7 +28,7 @@ public class TransactionService : ITransaction
 
         if (trx is not null)
         {
-            trx.StatusID = 2;
+            trx.StatusID = 4;
             trx.UpdatedBy = trans.UpdatedBy;
             trx.UpdatedAt = DateTime.Now;
 

@@ -1,4 +1,5 @@
-﻿using SharedLibrary.Entities.Transportation;
+﻿using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Entities.Transportation;
 using SharedLibrary.Repositories.Transportation;
 
 namespace SharedLibrary.Services.Transportation;
@@ -21,16 +22,20 @@ public class KendaraanService : IKendaraan
         }
         else
         {
-            var data = await context.Kendaraans.FindAsync(kendaraan.KendaraanID);
+            var data = await context.Kendaraans.Include(x => x.DokumenKendaraan).FirstOrDefaultAsync(x => x.KendaraanID == kendaraan.KendaraanID);
 
             if (data is not null)
             {
                 data.TipeKendaraanID = kendaraan.TipeKendaraanID;
                 data.NoPolisi = kendaraan.NoPolisi;
                 data.NoPintu = kendaraan.NoPintu;
+                data.RFID = kendaraan.RFID;
+                data.BeratKIR = kendaraan.BeratKIR;
                 data.DokumenKendaraan!.TglSTNK = kendaraan.DokumenKendaraan!.TglSTNK;
                 data.DokumenKendaraan!.TglKIR = kendaraan.DokumenKendaraan!.TglKIR;
                 data.DokumenKendaraan!.TahunPembuatan = kendaraan.DokumenKendaraan!.TahunPembuatan;
+                data.StatusID = kendaraan.StatusID;
+                data.IsVerified = kendaraan.IsVerified;
                 data.UpdatedAt = DateTime.Now;
 
                 context.Update(data);

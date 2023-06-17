@@ -19,7 +19,7 @@ public class DokumenKendaraan
     [Required(ErrorMessage = "Tanggal berlaku KIR wajib diisi")]
     public DateOnly TglKIR { get; set; }
 
-    public DateOnly? TglUjiEmisi { get; set; }
+    public DateOnly TglUjiEmisi { get; set; }
 
     public string? DokumenSTNK { get; set; }
 
